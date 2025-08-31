@@ -1,0 +1,163 @@
+console.log("reader-settings.js");
+
+const $ = jQuery;
+const settingsMap = {};
+
+function isMobile() {
+  return window.innerWidth < 768;
+}
+
+function setup() {
+  // add event listeners for closing reader settings
+  window.onclick = e => {
+    if (e.target == $("#reader-settings-wrapper")[0]) {
+      closeModal();
+    }
+  };
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") {
+      closeModal();
+    }
+  });
+
+  // get all the select dropdowns
+  $(".reader-settings-select").each(function () {
+    const $this = $(this);
+    settingsMap[$this.data("setting")] = $this;
+  });
+
+  if (isMobile() && !localStorage.getItem("keepMobileArticleWidth")) {
+    settingsMap["reader-article-width"].val("100%");
+    updateSetting("reader-article-width", "100%");
+    window.localStorage.setItem("keepMobileArticleWidth", true);
+  }
+}
+
+function closeModal() {
+  document.getElementById("reader-settings-wrapper").classList.add("is-hidden");
+}
+
+// called when a select dropdown is changed
+function updateSetting(name, value) {
+  if (!name || !value) return;
+
+  if (name === "reader-theme") {
+    updateTheme(value);
+  } else if (name === "reader-article-width") {
+    const mapping = {
+      "320px": "50%",
+      "500px": "60%",
+      "680px": "70%",
+      "1000px": "80%",
+      "1200px": "90%",
+      "100%": "100%",
+    };
+
+    document.documentElement.style.setProperty("--reader-article-max-width", mapping[value]);
+    document.documentElement.style.setProperty("--" + name, value);
+  } else {
+    document.documentElement.style.setProperty("--" + name, value);
+  }
+
+  if (name === "reader-font-size") {
+    if (value < "22pt") {
+      document.querySelectorAll("article").forEach(x => x.classList.add("disable-hyphen"));
+    } else {
+      document.querySelectorAll("article").forEach(x => x.classList.remove("disable-hyphen"));
+    }
+  }
+
+  storeSelectedSettings();
+}
+
+function updateTheme(value) {
+  $("#theme-select option").each(function () {
+    $("body").removeClass($(this).val());
+  });
+
+  $("body").addClass(value);
+
+  if (value === "reader-theme-white" || value === "reader-theme-sepia") {
+    $("body").addClass("page-light");
+    document.querySelectorAll('[style*="color"]').forEach(x => x.classList.add("colored-text-lightmode"));
+  } else {
+    $("body").removeClass("page-light");
+    document.querySelectorAll('[style*="color"]').forEach(x => x.classList.remove("colored-text-lightmode"));
+  }
+}
+
+function storeSelectedSettings() {
+  const settings = {};
+
+  $.each(settingsMap, function (dataSetting, $dropdown) {
+    const value = $dropdown.val();
+    settings[dataSetting] = value;
+  });
+
+  window.localStorage.setItem("readerSettings", JSON.stringify(settings));
+}
+
+function applyStoredSettings() {
+  const settingsJson = localStorage.getItem("readerSettings");
+
+  if (!settingsJson) {
+    console.log("No settings stored");
+    return;
+  }
+
+  const settings = JSON.parse(settingsJson);
+
+  $.each(settings, function (dataSetting, storedValue) {
+    const $dropdown = settingsMap[dataSetting];
+
+    if ($dropdown) {
+      let foundOption = null;
+      let defaultOption = null;
+
+      $dropdown.find("option").each(function () {
+        const $option = $(this);
+        const value = $option.val();
+
+        if (value === storedValue) {
+          foundOption = $option;
+          return false; // Break the loop early
+        }
+
+        if ($option.prop("defaultSelected")) {
+          defaultOption = $option;
+        }
+      });
+
+      const $selectedOption = foundOption || defaultOption;
+      if ($selectedOption) {
+        const selectedValue = $selectedOption.val();
+        $dropdown.val(selectedValue);
+        updateSetting(dataSetting, selectedValue);
+      }
+    }
+  });
+  console.log("Settings applied");
+}
+
+function resetSettings() {
+  $.each(settingsMap, function (dataSetting, $dropdown) {
+    if (isMobile() && dataSetting === "reader-article-width") {
+      $dropdown.val("100%");
+      updateSetting(dataSetting, "100%");
+    } else {
+      $dropdown.find("option").each(function () {
+        const $option = $(this);
+        if ($option.prop("defaultSelected")) {
+          $dropdown.val($option.val());
+          updateSetting(dataSetting, $option.val());
+          return false;
+        }
+      });
+    }
+  });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  setup();
+  applyStoredSettings();
+});

@@ -1,0 +1,830 @@
+/*!
+ * custom-addons-for-wandering-inn v1.0.0
+ * 
+ * (c) 2024 
+ * ISC License
+ * http://link-to-your-git-repo.com
+ */
+
+@charset "UTF-8";
+/* Breakpoints */
+/* line 2, assets/sass/modules/_header.scss */
+.landing-header {
+  background-color: #0E0F13;
+}
+
+/* line 5, assets/sass/modules/_header.scss */
+.landing-header .inner-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+/* line 11, assets/sass/modules/_header.scss */
+.landing-header .deco {
+  display: none;
+  width: 20%;
+  height: auto;
+  aspect-ratio: 150/120;
+}
+
+@media screen and (min-width: 1024px) {
+  /* line 11, assets/sass/modules/_header.scss */
+  .landing-header .deco {
+    display: inline-block;
+  }
+}
+
+/* line 21, assets/sass/modules/_header.scss */
+.landing-header .site-logo {
+  margin: 0 auto;
+}
+
+/* line 25, assets/sass/modules/_header.scss */
+.landing-header .header-main {
+  background-color: #0E0F13;
+}
+
+/* line 2, assets/sass/modules/_page.scss */
+.landing-wrap {
+  padding: 2rem;
+}
+
+@media screen and (min-width: 1200px) {
+  /* line 2, assets/sass/modules/_page.scss */
+  .landing-wrap {
+    margin: 0 auto;
+    max-width: 1200px;
+  }
+}
+
+/* line 10, assets/sass/modules/_page.scss */
+.landing-wrap a.btn {
+  background-color: #f7a71b;
+  color: #000;
+  padding: 1rem 3rem;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+/* line 19, assets/sass/modules/_page.scss */
+.frame-one {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+/* line 23, assets/sass/modules/_page.scss */
+.frame-one h2 {
+  font-size: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+/* line 28, assets/sass/modules/_page.scss */
+.frame-one p {
+  font-size: 18px;
+}
+
+/* line 33, assets/sass/modules/_page.scss */
+.frame-one .cta1 div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: self-end;
+      -ms-flex-align: self-end;
+          align-items: self-end;
+}
+
+/* line 38, assets/sass/modules/_page.scss */
+.frame-one .cta1 div img {
+  width: 80px;
+  height: auto;
+}
+
+/* line 42, assets/sass/modules/_page.scss */
+.frame-one .cta1 div img#mrsha-giggle {
+  -webkit-transform: scaleX(-1);
+          transform: scaleX(-1);
+  width: 60px;
+  height: 56px;
+}
+
+/* line 51, assets/sass/modules/_page.scss */
+.frame-one .deco-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+/* line 55, assets/sass/modules/_page.scss */
+.frame-one .deco-container img {
+  width: 40%;
+}
+
+@media screen and (min-width: 1024px) {
+  /* line 55, assets/sass/modules/_page.scss */
+  .frame-one .deco-container img {
+    width: 20%;
+  }
+}
+
+/* line 65, assets/sass/modules/_page.scss */
+.frame-two {
+  margin-bottom: 4rem;
+}
+
+@media screen and (min-width: 1024px) {
+  /* line 68, assets/sass/modules/_page.scss */
+  .frame-two .inner-wrap {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+
+/* line 74, assets/sass/modules/_page.scss */
+.frame-two .inner-wrap h2 {
+  color: #f7a71b;
+  font-size: 4rem;
+}
+
+@media screen and (min-width: 1024px) {
+  /* line 79, assets/sass/modules/_page.scss */
+  .frame-two .inner-wrap .content {
+    max-width: 65%;
+    padding-right: 1.5rem;
+  }
+}
+
+/* line 86, assets/sass/modules/_page.scss */
+.frame-two .inner-wrap .book-cover {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+/* line 91, assets/sass/modules/_page.scss */
+.frame-two .inner-wrap .book-cover div {
+  padding-top: 3rem;
+}
+
+/* line 98, assets/sass/modules/_page.scss */
+.frame-three {
+  margin-bottom: 4rem;
+}
+
+/* line 101, assets/sass/modules/_page.scss */
+.frame-three h2 {
+  font-size: 2.5rem;
+  line-height: 1;
+  margin-bottom: 2rem;
+}
+
+@media screen and (min-width: 1024px) {
+  /* line 101, assets/sass/modules/_page.scss */
+  .frame-three h2 {
+    font-size: 5.25rem;
+  }
+}
+
+/* line 111, assets/sass/modules/_page.scss */
+.frame-three .reader-reviews {
+  padding: 3rem 0;
+}
+
+/* line 114, assets/sass/modules/_page.scss */
+.frame-three .reader-reviews .review {
+  margin-bottom: 2rem;
+}
+
+@media screen and (min-width: 1024px) {
+  /* line 120, assets/sass/modules/_page.scss */
+  .frame-three .reader-reviews {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 2rem 0;
+  }
+  /* line 126, assets/sass/modules/_page.scss */
+  .frame-three .reader-reviews .review {
+    border-radius: 12px;
+    border: 2px solid #fff;
+    padding: 2rem;
+  }
+  /* line 131, assets/sass/modules/_page.scss */
+  .frame-three .reader-reviews .review p {
+    font-size: 18px;
+  }
+  /* line 135, assets/sass/modules/_page.scss */
+  .frame-three .reader-reviews .review strong {
+    font-size: 18px;
+  }
+  /* line 139, assets/sass/modules/_page.scss */
+  .frame-three .reader-reviews .review:nth-of-type(odd) {
+    background-color: #fff;
+    color: #0E0F13;
+  }
+  /* line 143, assets/sass/modules/_page.scss */
+  .frame-three .reader-reviews .review:nth-of-type(odd) p {
+    color: #0E0F13;
+  }
+}
+
+/* line 151, assets/sass/modules/_page.scss */
+.frame-three .rating-wrap {
+  width: 300px;
+  margin: 0 auto;
+}
+
+/* line 155, assets/sass/modules/_page.scss */
+.frame-three .rated {
+  background-color: #fff;
+  color: #000;
+  padding: 1rem;
+  border-radius: 30px;
+  border: 2px dashed #D67029;
+}
+
+/* line 162, assets/sass/modules/_page.scss */
+.frame-three .rated strong {
+  font-size: 30px;
+}
+
+/* line 167, assets/sass/modules/_page.scss */
+.frame-three .raters {
+  text-align: center;
+}
+
+/* line 171, assets/sass/modules/_page.scss */
+.frame-three .rating-cta {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 5rem 0 2rem 0;
+}
+
+/* Star Rating */
+/* line 179, assets/sass/modules/_page.scss */
+:root {
+  --star-size: 35px;
+  --star-color: #fff;
+  --star-background: #D67029;
+}
+
+/* line 185, assets/sass/modules/_page.scss */
+.stars {
+  --percent: calc(var(--rating) / 5 * 100%);
+  display: inline-block;
+  font-size: var(--star-size);
+  font-family: Times;
+  line-height: 1;
+}
+
+/* line 193, assets/sass/modules/_page.scss */
+.stars::before {
+  content: '★★★★★';
+  letter-spacing: 3px;
+  background: -webkit-gradient(linear, left top, right top, from(var(--star-background)), to(var(--star-color)));
+  background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+}
+
+/* line 203, assets/sass/modules/_page.scss */
+.frame-four {
+  margin-bottom: 4rem;
+}
+
+/* line 206, assets/sass/modules/_page.scss */
+.frame-four .inner-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+/* line 215, assets/sass/modules/_page.scss */
+.frame-four figcaption {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+
+/* line 221, assets/sass/modules/_page.scss */
+.frame-four img {
+  margin-bottom: 2rem;
+}
+
+/* line 225, assets/sass/modules/_page.scss */
+.frame-four h2 {
+  font-size: 2.5rem;
+  line-height: 1;
+  margin-bottom: 2rem;
+}
+
+/* line 2, assets/sass/modules/_banner.scss */
+section.site-banners {
+  margin-top: -4rem;
+  overflow: hidden;
+  height: 40vh;
+}
+
+@media screen and (min-width: 800px) {
+  /* line 2, assets/sass/modules/_banner.scss */
+  section.site-banners {
+    height: 30vh;
+  }
+}
+
+/* line 12, assets/sass/modules/_banner.scss */
+section.site-banners .photos {
+  position: relative;
+}
+
+/* line 16, assets/sass/modules/_banner.scss */
+section.site-banners .row {
+  margin: 0 auto;
+}
+
+/* line 20, assets/sass/modules/_banner.scss */
+section.site-banners .slide {
+  height: 40vh;
+}
+
+@media screen and (min-width: 800px) {
+  /* line 20, assets/sass/modules/_banner.scss */
+  section.site-banners .slide {
+    height: 30vh;
+  }
+}
+
+/* line 29, assets/sass/modules/_banner.scss */
+section.site-banners .slide.left .site-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+@media screen and (min-width: 800px) {
+  /* line 29, assets/sass/modules/_banner.scss */
+  section.site-banners .slide.left .site-content {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+}
+
+/* line 41, assets/sass/modules/_banner.scss */
+section.site-banners .slide.left .content-wrap {
+  padding-top: 3rem;
+}
+
+/* line 48, assets/sass/modules/_banner.scss */
+section.site-banners .slide.center .site-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+/* line 53, assets/sass/modules/_banner.scss */
+section.site-banners .slide.center .site-content .content-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-top: 3rem;
+}
+
+/* line 60, assets/sass/modules/_banner.scss */
+section.site-banners .slide.center .site-content .desc {
+  text-align: center;
+}
+
+/* line 65, assets/sass/modules/_banner.scss */
+section.site-banners .slide.center .banner-graphic {
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* line 72, assets/sass/modules/_banner.scss */
+section.site-banners .slide.right .site-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+@media screen and (min-width: 800px) {
+  /* line 72, assets/sass/modules/_banner.scss */
+  section.site-banners .slide.right .site-content {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: row-reverse;
+            flex-direction: row-reverse;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  /* line 84, assets/sass/modules/_banner.scss */
+  section.site-banners .slide.right .grid-wrap {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: row-reverse;
+            flex-direction: row-reverse;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  /* line 91, assets/sass/modules/_banner.scss */
+  section.site-banners .slide.right .grid-wrap .banner-graphic {
+    max-width: 60%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+}
+
+/* line 100, assets/sass/modules/_banner.scss */
+section.site-banners .slide.right .grid-wrap .content-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding-top: 3rem;
+}
+
+@media screen and (min-width: 800px) {
+  /* line 100, assets/sass/modules/_banner.scss */
+  section.site-banners .slide.right .grid-wrap .content-wrap {
+    padding-top: 0;
+    padding-right: 1rem;
+  }
+}
+
+/* line 114, assets/sass/modules/_banner.scss */
+section.site-banners .slide .slide-wrap {
+  background: black;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.9)), to(rgba(26, 43, 57, 0)));
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.9) 0%, rgba(26, 43, 57, 0) 100%);
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  top: 0;
+}
+
+/* line 122, assets/sass/modules/_banner.scss */
+section.site-banners .slide .slide-wrap .grid-wrap {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+@media screen and (min-width: 800px) {
+  /* line 122, assets/sass/modules/_banner.scss */
+  section.site-banners .slide .slide-wrap .grid-wrap {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: row-reverse;
+            flex-direction: row-reverse;
+  }
+}
+
+@media screen and (min-width: 75rem) {
+  /* line 122, assets/sass/modules/_banner.scss */
+  section.site-banners .slide .slide-wrap .grid-wrap {
+    max-width: 75rem;
+    margin: 0 auto;
+  }
+}
+
+/* line 139, assets/sass/modules/_banner.scss */
+section.site-banners .slide .site-content {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  width: calc(100vw - 3rem);
+}
+
+@media screen and (min-width: 800px) {
+  /* line 139, assets/sass/modules/_banner.scss */
+  section.site-banners .slide .site-content {
+    padding: 0;
+  }
+}
+
+/* line 149, assets/sass/modules/_banner.scss */
+section.site-banners .slide .button-block {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+/* line 153, assets/sass/modules/_banner.scss */
+section.site-banners .slide .button-block a {
+  color: #000;
+  background-color: #fff;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  -webkit-transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease;
+}
+
+/* line 160, assets/sass/modules/_banner.scss */
+section.site-banners .slide .button-block a:hover {
+  background-color: #ddd;
+}
+
+/* line 166, assets/sass/modules/_banner.scss */
+section.site-banners .slide .bg-photo {
+  height: 100%;
+  max-width: none;
+  width: auto;
+}
+
+@media screen and (min-width: 800px) {
+  /* line 166, assets/sass/modules/_banner.scss */
+  section.site-banners .slide .bg-photo {
+    height: auto;
+  }
+}
+
+@media screen and (min-width: 75rem) {
+  /* line 166, assets/sass/modules/_banner.scss */
+  section.site-banners .slide .bg-photo {
+    min-width: 100%;
+  }
+}
+
+/* line 181, assets/sass/modules/_banner.scss */
+section.site-banners .slide h2 {
+  color: #fff;
+}
+
+/* line 185, assets/sass/modules/_banner.scss */
+section.site-banners .slide h3 {
+  color: #f7a71b;
+}
+
+/* line 189, assets/sass/modules/_banner.scss */
+section.site-banners .slide .content-wrap.no-graphic {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding-top: 0;
+}
+
+/* line 198, assets/sass/modules/_banner.scss */
+section.site-banners.chapter-slider {
+  margin: 1.5rem 0;
+  height: auto;
+  padding: 2rem 0;
+  overflow-y: visible !important;
+  overflow-x: hidden !important;
+}
+
+/* line 206, assets/sass/modules/_banner.scss */
+section.site-banners.chapter-slider .swiper-pagination {
+  bottom: -30px !important;
+}
+
+/* line 210, assets/sass/modules/_banner.scss */
+section.site-banners.chapter-slider .slide {
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* line 227, assets/sass/modules/_banner.scss */
+section.site-banners.chapter-slider a {
+  text-decoration: none;
+}
+
+/* line 231, assets/sass/modules/_banner.scss */
+section.site-banners.chapter-slider .slide-wrap {
+  background: none;
+  position: relative;
+}
+
+/* line 235, assets/sass/modules/_banner.scss */
+section.site-banners.chapter-slider .slide-wrap .grid-wrap {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+}
+
+/* line 239, assets/sass/modules/_banner.scss */
+section.site-banners.chapter-slider .slide-wrap .grid-wrap .content-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  max-width: 70%;
+}
+
+@media screen and (max-width: 600px) {
+  /* line 245, assets/sass/modules/_banner.scss */
+  section.site-banners.chapter-slider .slide-wrap .grid-wrap .content-wrap h2 {
+    font-size: 1.25rem;
+  }
+}
+
+/* line 254, assets/sass/modules/_banner.scss */
+section.site-banners.chapter-slider .banner-graphic {
+  padding: 0.5rem 1rem;
+  width: 20%;
+}
+
+@media screen and (max-width: 500px) {
+  /* line 254, assets/sass/modules/_banner.scss */
+  section.site-banners.chapter-slider .banner-graphic {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  /* line 254, assets/sass/modules/_banner.scss */
+  section.site-banners.chapter-slider .banner-graphic {
+    padding: 1rem;
+  }
+}
+
+/* line 268, assets/sass/modules/_banner.scss */
+section.site-banners.chapter-slider .banner-graphic img {
+  width: auto;
+  height: auto;
+}
+
+/* line 280, assets/sass/modules/_banner.scss */
+.swiper-pagination {
+  bottom: 10% !important;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  left: 20px;
+  position: absolute;
+  z-index: 20;
+  margin: 0 auto;
+}
+
+/* line 290, assets/sass/modules/_banner.scss */
+.swiper-pagination-bullet {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: #fff;
+  border: 0;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 0;
+  height: 18px;
+  border-radius: 14px;
+  border: 6px solid #fff !important;
+  margin: 0 1px 0 0;
+  padding: 0;
+  width: 18px;
+}
+
+/* line 305, assets/sass/modules/_banner.scss */
+.swiper-pagination-bullet:before {
+  background: #fff;
+  content: "";
+  display: block;
+  height: .1875rem;
+  width: 100%;
+}
+
+/* line 314, assets/sass/modules/_banner.scss */
+.page-template-page-toc section.site-banners {
+  margin-top: 0;
+}
+
+/* line 319, assets/sass/modules/_banner.scss */
+.show-settings-btn {
+  float: none;
+  margin-left: calc(50% - 4rem);
+}

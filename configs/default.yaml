@@ -1,0 +1,17 @@
+# default parser config (mirrors internal/model.DefaultParserConfig)
+selectors:
+  - "article .entry-content"
+  - ".entry-content"
+  - ".post-content"
+  - "article"
+  - ".chapter-content"
+next_texts: ["Next", "Next Chapter", "Next Page", ">>", "»", "→"]
+min_text_len: 800
+polite_delay_sec: 1
+scene_break_patterns:
+  - "^[-_*]{3,}$"
+  - "^\* *\* *\* *$"
+  - "^—+$"
+  - "^†$"
+scene_break_style: "hr"
+consecutive_br_threshold: 3

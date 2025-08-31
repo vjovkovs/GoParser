@@ -1,0 +1,83 @@
+console.log('style helpers loaded')
+
+function applyAnimationToLetters() {
+    const elements = document.querySelectorAll('[class^="do-animate-letters"], [class*=" do-animate-letters"]');
+
+    elements.forEach(element => {
+        const text = element.textContent;
+        const classes = element.classList;
+
+        // Filter classes starting with "anim-"
+        const animClasses = Array.from(element.classList).filter(className => className.startsWith('anim-') || className.startsWith('animprop-')).join(' ');
+
+        // Find the "do-animate-letters" class with an optional integer
+        const doAnimateLettersClass = Array.from(classes).find(className => /^do-animate-letters(-\d+)?$/.test(className));
+
+        // Extract the integer (delay) from the class name or use a default value
+        const delayMultiplier = doAnimateLettersClass?.match(/-(\d+)/) ? parseInt(doAnimateLettersClass.match(/-(\d+)/)[1], 10) : 0;
+
+        if (text) {
+            element.innerHTML = '';
+
+            for (let i = 0; i < text.length; i++) {
+                const letter = text[i];
+                const span = document.createElement('span');
+
+                span.className = animClasses;
+                span.textContent = letter;
+                // Set a slight negative animation delay based on the extracted integer
+                span.style.animationDelay = `${-i * delayMultiplier / 1000}s`;
+                element.appendChild(span);
+
+            }
+
+            // Remove "anim-" classes and do-animate-letters class from the parent element
+            element.classList.remove(...animClasses.split(' '), doAnimateLettersClass);
+        }
+    });
+}
+
+function combineAnimations() {
+    const candidates = document.querySelectorAll('[class*="anim-"]');
+
+    // Iterate over the elements and combine animations
+    candidates.forEach(element => {
+        const animClasses = Array.from(element.classList).filter(cls => cls.startsWith('anim-'));
+        if (animClasses.length <= 1) { return }
+
+        const tempElement = document.createElement('span');
+        tempElement.style.display = 'none'; // Hide the temporary element
+        element.appendChild(tempElement); // Add the temporary element to the DOM
+
+        const combinedAnimations = animClasses.map(cls => {
+            tempElement.className = cls;
+            return window.getComputedStyle(tempElement).getPropertyValue('animation').trim();
+        }).join(', ');
+
+        element.removeChild(tempElement); // Remove the temporary element from the DOM
+        element.style.animation = combinedAnimations;
+    });
+}
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    applyAnimationToLetters();
+    combineAnimations();
+
+    jQuery(".hide-button").click(()=>{
+        const div = document.querySelector(".hideable");
+
+        if(div.style.height == "0px" || div.style.height == "" || div.style.height == "0")
+        {
+            div.style.height = "auto"
+            const height = getComputedStyle(div).height;
+            div.style.height = 0;
+            getComputedStyle(div).height; // force repaint
+            div.style.height = height;
+        }else {
+            div.style.height = "0";
+        }
+        jQuery(div).toggleClass("hideable-shown");
+    });
+});

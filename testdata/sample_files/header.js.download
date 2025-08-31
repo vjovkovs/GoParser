@@ -1,0 +1,59 @@
+//if (debugMode) console.log("header.js loaded");
+
+function dismiss_menus() {
+  // console.log("dismiss_menus() called");
+  jQuery("#nav-container-mobile").addClass("is-invisible");
+  jQuery("#mobile-menu-overlay").addClass("is-hidden");
+  jQuery("#search-container-mobile").addClass("is-hidden");
+  jQuery(".sub-menu").hide();
+
+  // if we are on safari
+  // if (navigator.userAgent.indexOf("Safari") != -1 && navigator.userAgent.indexOf("Chrome") == -1) {
+    document.querySelector("html").style.overflowY = "scroll";
+  // }
+}
+
+function mobile_menu_clicked() {
+  document.getElementById("nav-container-mobile").classList.toggle("is-invisible");
+  document.getElementById("mobile-menu-overlay").classList.toggle("is-hidden");
+  
+  // if (navigator.userAgent.indexOf("Safari") != -1 && navigator.userAgent.indexOf("Chrome") == -1) {
+    document.querySelector("html").style.overflowY = "hidden";
+    // give .mobile-menu-overlay a slight transparency
+    document.getElementById("mobile-menu-overlay").style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+  // }
+}
+
+function mobile_search_clicked() {
+  document.getElementById("search-container-mobile").classList.toggle("is-hidden");
+  jQuery("#header-top .logo-container").toggleClass("is-hidden-small");
+}
+
+jQuery(document).ready(function ($) {
+  $("li.menu-item-has-children").on("click", function (e) {
+    // check if the target has a sibling of class sub-menu
+    // or is the pseudo element of the parent li.menu-item-has-children
+    if ($(e.target).siblings(".sub-menu").length > 0) {
+      e.preventDefault();
+      $(e.target).siblings(".sub-menu").toggle();
+      document.getElementById("mobile-menu-overlay").classList.remove("is-hidden");
+    }
+    if ($(e.target).is("li.menu-item-has-children")) {
+      e.preventDefault();
+      $(e.target).children(".sub-menu").toggle();
+      document.getElementById("mobile-menu-overlay").classList.remove("is-hidden");
+    }
+  });
+
+  // $('a:contains("Patron Early Access: "), h1:contains("Patron Early Access: ")').each(function () {
+  //   let $this = $(this);
+  //   let text = $this.text();
+  //   let prefix = "Patron Early Access: ";
+
+  //   if (text.startsWith(prefix)) {
+  //     let newText = text.replace(prefix, "");
+  //     $this.html(newText);
+  //     $this.addClass("patron-title-prefix");
+  //   }
+  // });
+});
