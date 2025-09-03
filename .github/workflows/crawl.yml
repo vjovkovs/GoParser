@@ -1,69 +1,81 @@
-﻿name: crawl
+﻿name: Crawl
 
 on:
   workflow_dispatch:
     inputs:
       start_url:
-        description: "Start URL to parse"
+        description: "Start URL"
         required: true
-        type: string
+        default: "https://wanderinginn.com/2020/04/19/interlude-strategists-at-sea-pt-1/"
       max_pages:
-        description: "Max pages to parse"
-        required: false
+        description: "Max pages to crawl"
+        required: true
         default: "1"
-        type: string
       user_agent:
-        description: "User-Agent header"
+        description: "Optional custom User-Agent"
         required: false
         default: "Go-Parser/1.0 (+https://github.com/vjovkovs/goparser)"
-        type: string
+      fmt:
+        description: "Final artifact format: epub|pdf|txt|none"
+        required: true
+        default: "txt"
+      title:
+        description: "Book title (required if fmt != none)"
+        required: false
+        default: "The Wandering Inn"
+      author:
+        description: "Author (optional)"
+        required: false
+        default: "PirateAba"
+      chapter_fmt:
+        description: "Per-chapter formats (comma-separated: epub,pdf,txt)"
+        required: false
+        default: "txt"
       out_dir:
         description: "Output directory"
-        required: false
+        required: true
         default: "out"
-        type: string
 
 jobs:
-  build-run:
+  crawl:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: "1.22"
+          go-version-file: go.mod
+          cache: true
 
-      - name: Cache Go build
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/go/pkg/mod
-            ~/.cache/go-build
-          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-          restore-keys: ${{ runner.os }}-go-
-
-      - name: Tidy & download deps
-        working-directory: ./goparser
+      - name: Build crawler
         run: |
-          go mod tidy
-          go test ./...
+          go build -o bin/gwp ./cmd/gwp
 
-      - name: Run parser
-        working-directory: ./goparser
+      - name: Run crawler
+        env:
+          START_URL: ${{ inputs.start_url }}
+          MAX: ${{ inputs.max_pages }}
+          UA: ${{ inputs.user_agent }}
+          FMT: ${{ inputs.fmt }}
+          TITLE: ${{ inputs.title }}
+          AUTHOR: ${{ inputs.author }}
+          OUTDIR: ${{ inputs.out_dir }}
+          CHAPTERFMT: ${{ inputs.chapter_fmt }}
         run: |
-          go run ./cmd/gwp \
-            --url="${{ inputs.start_url }}" \
-            --max="${{ inputs.max_pages }}" \
-            --ua="${{ inputs.user_agent }}" \
-            --out="${{ inputs.out_dir }}"
-        # Optional example if you need a token later:
-        # env:
-        #   MY_API_TOKEN: ${{ secrets.MY_API_TOKEN }}
+          mkdir -p "$OUTDIR"
+          ARGS=( "--url=$START_URL" "--max=$MAX" "--out=$OUTDIR" )
+          if [ -n "$UA" ]; then ARGS+=( "--ua=$UA" ); fi
+          if [ -n "$FMT" ]; then ARGS+=( "--fmt=$FMT" ); fi
+          if [ -n "$TITLE" ]; then ARGS+=( "--title=$TITLE" ); fi
+          if [ -n "$AUTHOR" ]; then ARGS+=( "--author=$AUTHOR" ); fi
+          if [ -n "$CHAPTERFMT" ]; then ARGS+=( "--chapter-fmt=$CHAPTERFMT" ); fi
+          ./bin/gwp "${ARGS[@]}"
 
-      - name: Upload artifact
+      - name: Upload crawl artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: parsed-output
-          path: goparser/${{ inputs.out_dir }}/
-          if-no-files-found: warn
+          name: crawl-output-${{ github.run_id }}
+          path: ${{ inputs.out_dir }}/**
+          if-no-files-found: error
