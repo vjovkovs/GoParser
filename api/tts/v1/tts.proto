@@ -1,0 +1,41 @@
+syntax = "proto3";
+package tts.v1;
+
+option go_package = "github.com/vjovkovs/GoParser/api/tts/v1;ttsv1";
+
+// Request a single synthesis job; server streams bytes of ONE audio file.
+message SynthesizeRequest {
+  string text           = 1;  // raw text to speak
+  string voice          = 2;  // e.g., "af_heart"
+  int32  sample_rate_hz = 3;  // e.g., 24000
+  string audio_format   = 4;  // "wav" (recommended), "pcm_s16le", "mp3"
+  float  speed          = 5;  // 1.0 = normal
+}
+
+message AudioChunk {
+  bytes audio = 1;
+}
+
+// NEW: voice catalog + alias support
+message Voice {
+  string id         = 1;  // canonical Kokoro voice id, e.g., "af_heart"
+  string lang_code  = 2;  // Kokoro pipeline code, e.g., "a" (American English)
+  string gender     = 3;  // "male" | "female" | "" (unknown)
+  string display    = 4;  // human-friendly name, e.g., "Heart (American Female)"
+}
+
+message Alias {
+  string alias   = 1;  // e.g., "en-us"
+  string maps_to = 2;  // e.g., "af_heart"
+}
+
+message ListVoicesRequest {}
+message ListVoicesResponse {
+  repeated Voice voices = 1;
+  repeated Alias aliases = 2; // optional convenience so clients can show shortcuts
+}
+
+service TTS {
+  rpc Synthesize  (SynthesizeRequest) returns (stream AudioChunk);
+  rpc ListVoices  (ListVoicesRequest) returns (ListVoicesResponse);  // NEW
+}

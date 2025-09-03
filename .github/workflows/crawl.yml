@@ -4,23 +4,23 @@ on:
   workflow_dispatch:
     inputs:
       start_url:
-        description: 'Start URL to parse'
+        description: "Start URL to parse"
         required: true
         type: string
       max_pages:
-        description: 'Max pages to parse'
+        description: "Max pages to parse"
         required: false
-        default: '1'
+        default: "1"
         type: string
       user_agent:
-        description: 'User-Agent header'
+        description: "User-Agent header"
         required: false
-        default: 'Go-Parser/1.0 (+https://github.com/vjovkovs/goparser)'
+        default: "Go-Parser/1.0 (+https://github.com/vjovkovs/goparser)"
         type: string
       out_dir:
-        description: 'Output directory'
+        description: "Output directory"
         required: false
-        default: 'out'
+        default: "out"
         type: string
 
 jobs:
@@ -32,7 +32,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.22'
+          go-version: "1.22"
 
       - name: Cache Go build
         uses: actions/cache@v4
@@ -57,9 +57,9 @@ jobs:
             --max="${{ inputs.max_pages }}" \
             --ua="${{ inputs.user_agent }}" \
             --out="${{ inputs.out_dir }}"
-        env:
-          # Optional example if you need a token later:
-          # MY_API_TOKEN: ${{ secrets.MY_API_TOKEN }}
+        # Optional example if you need a token later:
+        # env:
+        #   MY_API_TOKEN: ${{ secrets.MY_API_TOKEN }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4

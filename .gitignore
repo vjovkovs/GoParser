@@ -8,6 +8,9 @@
 *.so
 *.dylib
 
+*.wav
+*.mp3
+chapters/
 # Test binary, built with `go test -c`
 *.test
 

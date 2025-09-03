@@ -83,6 +83,103 @@ func stripNoise(node *goquery.Selection) {
 	}
 }
 
+// normalizeNavLabel collapses whitespace and strips arrow glyphs.
+func normalizeNavLabel(s string) string {
+	s = strings.TrimSpace(s)
+	// Remove common arrow/chevron glyphs
+	repl := strings.NewReplacer("«", "", "»", "", "←", "", "→", "", "›", "", "«", "", "»", "", "▶", "", "►", "")
+	s = repl.Replace(s)
+	// collapse whitespace
+	reSpace := regexp.MustCompile(`\s+`)
+	return reSpace.ReplaceAllString(strings.ToLower(s), " ")
+}
+
+// true if the node is a <p>/<li> that contains only nav anchors like "Previous Chapter" / "Next Chapter"
+func isNavOnlyBlock(n *html.Node, cfg model.ParserConfig) bool {
+	if n == nil || n.Type != html.ElementNode {
+		return false
+	}
+	// Only check block-ish nodes
+	tag := strings.ToLower(n.Data)
+	if tag != "p" && tag != "li" && tag != "div" {
+		return false
+	}
+
+	var anchors []*html.Node
+	var otherText strings.Builder
+
+	// Walk children to collect anchors and any non-anchor text
+	var walk func(*html.Node)
+	walk = func(nn *html.Node) {
+		for c := nn.FirstChild; c != nil; c = c.NextSibling {
+			switch c.Type {
+			case html.ElementNode:
+				if strings.EqualFold(c.Data, "a") {
+					anchors = append(anchors, c)
+				} else {
+					walk(c)
+				}
+			case html.TextNode:
+				otherText.WriteString(strings.TrimSpace(c.Data))
+			default:
+				walk(c)
+			}
+		}
+	}
+	walk(n)
+
+	if len(anchors) == 0 {
+		return false
+	}
+	// If there's non-empty text outside anchors, it's not a pure nav row
+	if strings.TrimSpace(otherText.String()) != "" {
+		return false
+	}
+
+	// Check each anchor's label
+	navRe := regexp.MustCompile(`^(?:prev(?:ious)?|next)(?:\s+(?:chapter|page))?$`)
+	for _, a := range anchors {
+		// get rendered text for the <a>
+		var txt strings.Builder
+		var pull func(*html.Node)
+		pull = func(nn *html.Node) {
+			for c := nn.FirstChild; c != nil; c = c.NextSibling {
+				if c.Type == html.TextNode {
+					txt.WriteString(c.Data)
+				} else {
+					pull(c)
+				}
+			}
+		}
+		pull(a)
+
+		label := normalizeNavLabel(txt.String())
+		if navRe.MatchString(label) {
+			continue
+		}
+		// also allow exact matches from config lists, if present
+		ok := false
+		for _, t := range cfg.NextTexts {
+			if normalizeNavLabel(t) == label {
+				ok = true
+				break
+			}
+		}
+		if !ok {
+			for _, t := range cfg.PrevTexts {
+				if normalizeNavLabel(t) == label {
+					ok = true
+					break
+				}
+			}
+		}
+		if !ok {
+			return false
+		}
+	}
+	return true
+}
+
 func paragraphsWithInline(root *goquery.Selection, cfg model.ParserConfig) []string {
 	var blocks []string
 	push := func(tag string, el *html.Node) {
@@ -118,6 +215,10 @@ func paragraphsWithInline(root *goquery.Selection, cfg model.ParserConfig) []str
 			if n.Type == html.ElementNode {
 				switch strings.ToLower(n.Data) {
 				case "p", "li":
+					if isNavOnlyBlock(n, cfg) {
+						// Skip pure "Previous/Next Chapter" rows
+						break
+					}
 					push("p", n)
 				case "blockquote":
 					push("blockquote", n)

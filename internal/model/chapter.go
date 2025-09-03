@@ -10,6 +10,7 @@ type Chapter struct {
 type ParserConfig struct {
 	SelectorCandidates     []string
 	NextTexts              []string
+	PrevTexts              []string
 	MinTextLen             int
 	PoliteDelaySec         int
 	SceneBreakPatterns     []string
@@ -22,6 +23,7 @@ func DefaultParserConfig() ParserConfig {
 		SelectorCandidates: []string{"" +
 			"article .entry-content", ".entry-content", ".post-content", "article", ".chapter-content"},
 		NextTexts: []string{"Next", "Next Chapter", "Next Page", ">>", "Â»", "â†’"},
+		PrevTexts: []string{"Previous", "Previous Chapter", "Prev", "<<", "«", "←"},
 		//MinTextLen:             800,
 		MinTextLen:             50,
 		PoliteDelaySec:         1,

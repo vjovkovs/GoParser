@@ -56,11 +56,8 @@ func firstNonEmpty(a, b string) string {
 }
 
 func writePerChapterArtifacts(ch model.Chapter, outDir string, fmts []string, defaultAuthor string) error {
-	// Choose a stable slug for folder/filename: prefer Code, then Title
-	base := util.Slugify(firstNonEmpty(ch.Code, ch.Title))
-	if base == "" {
-		base = "chapter"
-	}
+	// **Unified slug** (same as storage.Save)
+	base := util.ChapterSlug(ch)
 
 	chapRoot := filepath.Join(outDir, "chapters", base)
 
@@ -98,7 +95,6 @@ func writePerChapterArtifacts(ch model.Chapter, outDir string, fmts []string, de
 			if author == "" {
 				author = "Unknown"
 			}
-			// Build a single-chapter EPUB: title = chapter title, no TOC page
 			if err := writer.WriteEPUB([]model.Chapter{ch}, out, ch.Title, author, false); err != nil {
 				return fmt.Errorf("epub %s: %w", ch.Title, err)
 			}
