@@ -11,6 +11,9 @@
 *.wav
 *.mp3
 chapters/
+testdata/
+out/audio.
+.venv/
 # Test binary, built with `go test -c`
 *.test
 

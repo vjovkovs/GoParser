@@ -1,0 +1,16 @@
+{
+  "voices": [
+    { "id": "af_heart",   "lang": "a", "gender": "female", "display": "Heart (American Female)" },
+    { "id": "af_bella",   "lang": "a", "gender": "female", "display": "Bella (American Female)" },
+    { "id": "am_michael", "lang": "a", "gender": "male",   "display": "Michael (American Male)" },
+    { "id": "bf_emma",    "lang": "b", "gender": "female", "display": "Emma (British Female)" },
+    { "id": "bm_george",  "lang": "b", "gender": "male",   "display": "George (British Male)" }
+  ],
+  "aliases": {
+    "en": "af_heart",
+    "en-us": "af_heart",
+    "american": "af_heart",
+    "en-gb": "bf_emma",
+    "british": "bf_emma"
+  }
+}

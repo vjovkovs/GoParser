@@ -1,0 +1,82 @@
+name: Kokoro CLI TTS
+
+on:
+  workflow_dispatch:
+    inputs:
+      input_path:
+        description: "Path to .txt file or directory (in repo)"
+        required: true
+        default: "testdata"
+      recursive:
+        description: "Recursively search directories for .txt files"
+        type: boolean
+        default: true
+      voice:
+        description: "Voice to use (see 'List voices' step)"
+        required: true
+        default: "af_heart"
+      rate:
+        description: "Sample rate (Hz)"
+        required: true
+        default: "24000"
+      speed:
+        description: "Speech speed (1.0 is normal)"
+        required: true
+        default: "1.0"
+      final:
+        description: "Final output format"
+        required: true
+        default: "mp3"
+
+jobs:
+  tts:
+    runs-on: ubuntu-latest
+    env:
+      KOKORO_REPO_ID: "hexgrad/Kokoro-82M"
+      PYTHONWARNINGS: "ignore:dropout option adds dropout,ignore::FutureWarning"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+          cache-dependency-path: server_py/requirements.txt
+
+      - name: Cache Hugging Face models
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: hf-${{ runner.os }}-${{ env.KOKORO_REPO_ID }}
+          restore-keys: |
+            hf-${{ runner.os }}-
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r server_py/requirements.txt
+
+      - name: (Optional) Install ffmpeg for MP3
+        if: ${{ inputs.final == 'mp3' }}
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: List voices
+        run: python server_py/kokoro_cli.py list --catalog voices/voices.json
+
+      - name: Run TTS
+        run: |
+          python server_py/kokoro_cli.py synth \
+            --input "${{ inputs.input_path }}" \
+            --out "out/audio" \
+            --voice "${{ inputs.voice }}" \
+            --rate ${{ inputs.rate }} \
+            --speed ${{ inputs.speed }} \
+            --final ${{ inputs.final }} \
+            $([ "${{ inputs.recursive }}" = "true" ] && echo "--recursive")
+
+      - name: Upload audio
+        uses: actions/upload-artifact@v4
+        with:
+          name: kokoro-audio-${{ github.run_id }}
+          path: out/audio/**
+          if-no-files-found: error

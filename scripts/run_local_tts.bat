@@ -1,0 +1,1 @@
+python .\server_py\kokoro_cli.py synth --input .\out --recursive --out out\audio --voice af_heart --rate 24000 --speed 1.0 --final mp3
